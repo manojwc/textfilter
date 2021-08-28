@@ -1,6 +1,6 @@
 define(['Helper'], function(Helper) {
 	var self;
-	var apiPath = '../com/index.php/';
+	var apiPath = '../../com/textfilter.php/';
 	var nav, frame;
 	var files = ['words'];
 	var foldername = 'app/partials/';
