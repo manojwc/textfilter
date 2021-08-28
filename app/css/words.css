@@ -1,0 +1,119 @@
+*{
+	box-sizing: border-box;
+}
+
+.main-container{
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: flex-start;
+	padding: 20px;
+	font-family: 'Ubuntu';
+}
+
+.form-container{
+	position: relative;
+	width: 100%;
+	max-width: 700px;
+	border: 1px solid #adadad;
+	padding: 0px 10px;
+	display: flex;
+	flex-direction: column;
+	background-color: #efefef;
+	margin-bottom: 10px;
+}
+
+.form-container > form{
+	position: relative;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+.form-container > form > .form-group{
+	position: relative;
+	width: 47%;
+	flex: 0 0 47%;
+	margin: 10px 10px 0px 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+}
+
+.form-container > form > .form-group textarea{
+	resize: none;
+}
+
+.form-container > form > .form-group.flex-55{
+	width: 55%;
+	flex: 1 1 55%;
+}
+
+.form-container > form > .form-group.flex-45{
+	width: auto;
+	flex: 1 1 auto;
+}
+
+.form-container > form > .form-group.full{
+	width: 100%;
+	flex: 1 1 100%;
+}
+
+.form-container > form > .form-group.full > div{
+	position: relative;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+}
+
+.form-container > form > .form-group > .action-holder{
+	position: relative;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	margin: 25px 0px;
+}
+
+.form-container > form > .form-group > .action-holder > .form-check{
+	position: relative;
+	width: 30%;
+	flex: 1 1 30%;
+	margin-right: 10px;
+}
+
+.error-container{
+	position: relative;
+	width: 100%;
+}
+
+.error-container > .error-msg{
+	position: relative;
+	width: 100%;
+	font-size: 16px;
+	color: #f00;
+}
+
+.inst-text {
+	font-size: 12px;
+    color: #ff0000;
+    margin-top: 0px;
+    margin-left: 20px;
+}
+
+.warning-msg{
+	position: absolute;
+	right: 10px;
+	bottom: 5px;
+	width: auto;
+}
+
+.hidden{
+	display: none !important;
+}
