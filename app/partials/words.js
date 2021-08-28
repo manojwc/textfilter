@@ -19,6 +19,7 @@ var pg = (function() {
 		addEventListeners();
 		if (parent.app) {
 			apiPath = parent.app.get_api_path();
+			alert(apiPath + 'words/get_');
 		};
 	};
 
@@ -79,7 +80,7 @@ var pg = (function() {
 		var local_val = localStorage.getItem('wt_' + word_type);
 		var from_api = false;
 		
-		if (local_val === null || local_val === undefined || local_val === "null") {
+		if (local_val === null || local_val === undefined || local_val==="null") {
 			from_api = true;
 		} else {
 			dateString = JSON.parse(local_val).timestamp;
@@ -90,7 +91,8 @@ var pg = (function() {
 		}
 		if (from_api) {
 			localStorage.setItem('wt_' + word_type, null);
-			var prm = Helper.loadFile(apiPath + 'words/get_' + word_type, 'get', false, 'json');
+
+			var prm = Helper.loadFile(apiPath + '/words/get_' + word_type, 'get', false, 'json');
 			prm.done(function(resp) {
 				if (resp.data !== '') {
 					var object = {value: resp.data, timestamp: new Date().getTime()}
