@@ -27,4 +27,7 @@
 		</div>
 	</div>
 </body>
+<?php
+echo "Hello World!";
+?> 
 </html>
