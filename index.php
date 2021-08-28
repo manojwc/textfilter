@@ -4,8 +4,8 @@
 <title>Words</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-<link rel="stylesheet" href="libs/css/bootstrap.min.css"/>
-<link rel="stylesheet" href="app/css/main.css"/>
+<!--<link rel="stylesheet" href="libs/css/bootstrap.min.css"/>-->
+<link rel="stylesheet" href="app/css/main.css" type="text/css"/>
 <script type="text/javascript" data-main="app/js/main.js" src="libs/js/require.js"></script>
 </head>
 <body>
