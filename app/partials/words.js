@@ -19,7 +19,6 @@ var pg = (function() {
 		addEventListeners();
 		if (parent.app) {
 			apiPath = parent.app.get_api_path();
-			alert(apiPath + 'words/get_');
 		};
 	};
 

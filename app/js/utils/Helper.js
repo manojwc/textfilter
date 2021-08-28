@@ -43,11 +43,10 @@ var Helper = (function() {
 				} else if (exception == 'abort') {
 					message = "Request was aborted by the server";
 				} else {
-					//alert(exception);
 					message="Unknown Error.";
 				};
 			};
-			alert(message);
+			alert("AJAX Error Handler -" + message);
 		};
 	};
 
