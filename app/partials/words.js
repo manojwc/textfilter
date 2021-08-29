@@ -161,7 +161,7 @@ var pg = (function() {
 			var selectedLabel = word_type.toTitleCase();
 			var selectedLabelID = eval('chk' + selectedLabel);
 
-			selectedLabelID[0].labels[0].innerHTML = selectedLabel + ' ( ' + words.length + ' )';
+			selectedLabelID[0].labels[0].innerHTML = selectedLabel + ' (' + words.length + ')';
 		}	
 
 		var cont = '.' + word_type + '_cont';
