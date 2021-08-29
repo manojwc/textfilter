@@ -2,6 +2,8 @@ var pg = (function() {
 	var error_cont, result_cont;
 	var apiPath;
 	var txtPara;
+	var maxLength;
+	var charLeft;
 	var chkAdjectives, chkAdverbs, chkCommon, chkPrepositions, chkPronouns, chkSlug;
 	var words = {'adjectives': [], 'adverbs': [], 'common': [], prepositions: [], pronouns: [], slug: []};
 	
@@ -15,6 +17,8 @@ var pg = (function() {
 		chkPrepositions = $('#chkPrepositions');
 		chkPronouns = $('#chkPronouns');
 		chkSlug = $('#chkSlug');
+		maxLength = txtPara[0].maxLength;
+		charLeft = $('#charLeft');
 
 		addEventListeners();
 		if (parent.app) {
@@ -48,6 +52,11 @@ var pg = (function() {
 		chkSlug.on('click', function() {
 			return show_words('slug', this.checked);
 		});
+
+		txtPara.on('keyup', (function() {
+			var textlen = maxLength - $(this).val().length;
+			charLeft.text('Characters Left: ' + textlen);
+		}));
 	};
 
 	var show_words = function(word_type, flag) {
@@ -132,18 +141,27 @@ var pg = (function() {
 		return words;
 	};
 
+	String.prototype.toTitleCase = function() {
+		return(this.toLowerCase().replace(this.charAt(0), this.charAt(0).toUpperCase()));
+	}
+
 	var display_words = function(word_type, words) {
 		var title = Helper.toTitleCase(word_type);
 		
 		var str = '<h3>' + title + '</h3>';
 		if (words.length === 0) {
-			str += '<p>No words found</p>';
+			str += '<p>No ' + word_type.toUpperCase() + ' found</p>';
 		} else {
 			str += '<ul>';
 			words.forEach(function(word) {
 				str += '<li>' + word + '</li>';
 			});
 			str += '</ul>';
+			
+			var selectedLabel = word_type.toTitleCase();
+			var selectedLabelID = eval('chk' + selectedLabel);
+
+			selectedLabelID[0].labels[0].innerHTML = selectedLabel + ' ( ' + words.length + ' )';
 		}	
 
 		var cont = '.' + word_type + '_cont';
