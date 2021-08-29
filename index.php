@@ -23,7 +23,7 @@
     				</ul>
 				</div>
 			</nav>
-			<iframe id="page-container" class="page-container" src="app/partials/blank.html" width="100%" height="100%" frameborder="0"  allowfullscreen="true"></iframe>
+			<!--<iframe id="page-container" class="page-container" src="app/partials/blank.html" width="100%" height="100%" frameborder="0"  allowfullscreen="true"></iframe>-->
 		</div>
 	</div>
 </body>
