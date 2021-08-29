@@ -54,8 +54,9 @@ var pg = (function() {
 		words[word_type] = [];
 		if (flag) {
 			txtPara.val(txtPara.val().trim());
+			
 			if (txtPara.val() === '') {
-				alert('Please add para');
+				alert('Oops! Please enter some text first.');
 				return false;
 			};
 			var prm = get_words_list(word_type);

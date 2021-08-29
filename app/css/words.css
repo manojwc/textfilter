@@ -1,5 +1,6 @@
 *{
 	box-sizing: border-box;
+	font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .main-container{
@@ -88,6 +89,11 @@
 	margin-right: 10px;
 }
 
+#txtPara {
+	height: 300px;
+	resize: vertical;
+}
+
 .error-container{
 	position: relative;
 	width: 100%;
@@ -116,4 +122,24 @@
 
 .hidden{
 	display: none !important;
+}
+
+.form-control::-webkit-input-placeholder {
+	color: #311515;
+}
+
+.form-control:-moz-placeholder {
+	color: #311515;
+}
+
+.form-control::-moz-placeholder {
+	color: #311515;
+}
+
+.form-control::placeholder {
+	color: #311515;
+}
+
+.form-control:-ms-input-placeholder {
+	color: #311515;
 }
