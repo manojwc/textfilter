@@ -148,7 +148,7 @@ var pg = (function() {
 	var display_words = function(word_type, words) {
 		var title = Helper.toTitleCase(word_type);
 		
-		var str = '<h3>' + title + '</h3>';
+		var str = '<strong>' + title + '</strong>';
 		if (words.length === 0) {
 			str += '<p>No ' + word_type.toUpperCase() + ' found</p>';
 		} else {

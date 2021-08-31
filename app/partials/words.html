@@ -14,19 +14,18 @@
 
 <body>
 	<div class="main-container">
-		<div class="form-container">
+		<div class="form-container" style="height: 100vh;">
 			<form>
-				<div class="form-group full">
+				<div class="form-group">
 					<label for="txtPara">Type OR Paste Your Text Below</label>
-					<div>
+					<div class="txtParaContainer">
 						<textarea class="form-control" name="txtPara" maxlength=2000 id="txtPara"
 							placeholder="Enter Text"></textarea>
 					</div>
 					<span name="charLeft" id="charLeft" width="100%">Characters Left:</span>
-					<hr noshade width="100%" size="1">
 				</div>
-				<div class="form-group flex-45">
-					<div class="action-holder">
+				<div class="form-group">
+					<div class="action-holder d-flex">
 						<div class="form-check">
 							<input class="form-check-input" type="checkbox" value="" id="chkAdjectives">
 							<label class="form-check-label" for="chkAdjectives">Adjectives</label>
@@ -52,20 +51,22 @@
 							<label class="form-check-label" for="chkSlug">Slug</label>
 						</div>
 					</div>
+					<div class="result-container flex-45">
+						<div class="cont adjectives_cont hidden"></div>
+						<div class="cont adverbs_cont hidden"></div>
+						<div class="cont common_cont hidden"></div>
+						<div class="cont prepositions_cont hidden"></div>
+						<div class="cont pronouns_cont hidden"></div>
+						<div class="cont slug_cont hidden"></div>
+					</div>
 				</div>
+
 			</form>
 		</div>
 		<div class="error-container hidden">
 			<div class="error-msg"></div>
 		</div>
-		<div class="result-container">
-			<div class="cont adjectives_cont hidden"></div>
-			<div class="cont adverbs_cont hidden"></div>
-			<div class="cont common_cont hidden"></div>
-			<div class="cont prepositions_cont hidden"></div>
-			<div class="cont pronouns_cont hidden"></div>
-			<div class="cont slug_cont hidden"></div>
-		</div>
+
 	</div>
 </body>
 
