@@ -6,21 +6,26 @@ var pg = (function() {
 	var charLeft;
 	var chkAdjectives, chkAdverbs, chkCommon, chkPrepositions, chkPronouns, chkSlug;
 	var words = {'adjectives': [], 'adverbs': [], 'common': [], prepositions: [], pronouns: [], slug: []};
+	var wordsColors;
 	
 	var init = function() {
 		error_cont = $('.error-container');
 		result_cont = $('.result-container');
 		txtPara = $('#txtPara');
+		maxLength = txtPara[0].attributes.maxLength.value;
 		chkAdjectives = $('#chkAdjectives');
 		chkAdverbs = $('#chkAdverbs');
 		chkCommon = $('#chkCommon');
 		chkPrepositions = $('#chkPrepositions');
 		chkPronouns = $('#chkPronouns');
 		chkSlug = $('#chkSlug');
-		maxLength = txtPara[0].maxLength;
 		charLeft = $('#charLeft');
-
+		wordsColors = {adjectives: '#f99', adverbs:'#aaf', common: '#aaa'};
 		addEventListeners();
+
+		console.log(txtPara);
+		txtPara.trigger('keyup');
+
 		if (parent.app) {
 			apiPath = parent.app.get_api_path();
 		};
@@ -53,26 +58,30 @@ var pg = (function() {
 			return show_words('slug', this.checked);
 		});
 
-		txtPara.on('keyup', (function() {
-			var textlen = maxLength - $(this).val().length;
-			charLeft.text('Characters Left: ' + textlen);
+		txtPara.bind('keyup change', (function() {
+			var textLength = maxLength - this.innerText.length;
+			charLeft.text('Characters Left: ' + textLength);
 		}));
 	};
 
 	var show_words = function(word_type, flag) {
 		words[word_type] = [];
+		
 		if (flag) {
-			txtPara.val(txtPara.val().trim());
+			var txtParaContent = txtPara[0].innerText.trim();
 			
-			if (txtPara.val() === '') {
+			if (txtParaContent.length <= 0) {
 				alert('Oops! Please enter some text first.');
 				return false;
 			};
+
 			var prm = get_words_list(word_type);
+			
 			prm.done(function(data) {
 				if (data !== '') {
 					var words_list = decode_data(data);
-					var available_words = find_words(words_list, txtPara.val());
+					var available_words = find_words(words_list, txtParaContent, word_type);
+
 					display_words(word_type, available_words);
 				}
 			}).fail(Helper.ajaxErrorHandler);
@@ -81,6 +90,7 @@ var pg = (function() {
 			var cont = '.' + word_type + '_cont';
 			result_cont.find(cont).html('').addClass('hidden');
 		};
+
 		return true;
 	};
 
@@ -89,6 +99,7 @@ var pg = (function() {
 		localStorage.setItem('wt_' + word_type, null);
 		var local_val = localStorage.getItem('wt_' + word_type);
 		var from_api = false;
+		
 		if (local_val === null || local_val === undefined || local_val === "null") {
 			from_api = true;
 		} else {
@@ -97,7 +108,8 @@ var pg = (function() {
     		var diff_ms = (parseInt(now, 10) - parseInt(dateString, 10));
     		var diff = diff_ms / (1000 * 60 * 60 * 24);
     		from_api = (diff > 10);
-		}
+		};
+		
 		if (from_api) {
 			localStorage.setItem('wt_' + word_type, null);
 			/*var prm = Helper.loadFile(apiPath + 'words/get_' + word_type, 'get', false, 'json');
@@ -111,16 +123,18 @@ var pg = (function() {
 				defer.reject(err);
 			});*/
 			var data = words_list[word_type];
+
 			if (data) {
 				var object = {value: data, timestamp: new Date().getTime()};
 				localStorage.setItem('wt_' + word_type, JSON.stringify(object));
 				defer.resolve(data);
 			} else {
 				defer.reject("Error");
-			}
+			};
 		} else {
 			defer.resolve(JSON.parse(local_val).value);
 		};
+
 		return defer.promise(); 
 	};
 
@@ -130,26 +144,47 @@ var pg = (function() {
 		return data.split(",");
 	};
 
-	var find_words = function(arr, para) {
+	var find_words = function(arr, para, wordType) {
 		var words = [];
 		var para_words = para.split(" ");
+
 		words = para_words.filter(function(word) {
 			return (arr.indexOf(word) > -1);
 		}).filter(function(word, pos, self) {
 			return (self.indexOf(word) === pos);
 		});
+		
+		// highlight matching words in the original text
+		hightlight_text(words, wordType);
 		return words;
 	};
+
+	var hightlight_text = function(words, wordType) {
+		var updatedPara = [];
+		var highlightColor = wordsColors[wordType];
+		var para_words = txtPara[0].innerHTML.trim().split(" ");
+		
+		para_words.forEach(function(w) {
+			if(words.indexOf(w) > -1) {
+				w = "<span style='background-color:" + highlightColor + ";'>" + w + "</span>";
+			};
+			
+			updatedPara.push(w);
+		});
+
+		txtPara[0].innerHTML = updatedPara.join(" ");
+	}
 
 	String.prototype.toTitleCase = function() {
 		return(this.toLowerCase().replace(this.charAt(0), this.charAt(0).toUpperCase()));
 	}
 
 	var display_words = function(word_type, words) {
-		var title = Helper.toTitleCase(word_type);
-		
+		var title = Helper.toTitleCase(word_type);		
 		var str = '<strong>' + title + '</strong>';
+
 		if (words.length === 0) {
+			return false;
 			str += '<p>No ' + word_type.toUpperCase() + ' found</p>';
 		} else {
 			str += '<ul>';
