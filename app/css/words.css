@@ -96,12 +96,13 @@
 
 .txtParaContainer {
 	height: 100%;
-	max-height:fit-content;
 }
 
 #txtPara {
 	height: 100%;
 	resize: vertical;
+	max-height: 100vh;
+	overflow-y: auto;
 }
 
 .error-container{

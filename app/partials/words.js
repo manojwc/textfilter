@@ -20,11 +20,11 @@ var pg = (function() {
 		chkPronouns = $('#chkPronouns');
 		chkSlug = $('#chkSlug');
 		charLeft = $('#charLeft');
-		wordsColors = {adjectives: '#f99', adverbs:'#aaf', common: '#aaa'};
+		wordsColors = {adjectives: '#fcc', adverbs:'#bbe', common: '#ddd'};
 		addEventListeners();
 
-		console.log(txtPara);
 		txtPara.trigger('keyup');
+		chkAdjectives.trigger('click');
 
 		if (parent.app) {
 			apiPath = parent.app.get_api_path();
@@ -61,6 +61,7 @@ var pg = (function() {
 		txtPara.bind('keyup change', (function() {
 			var textLength = maxLength - this.innerText.length;
 			charLeft.text('Characters Left: ' + textLength);
+
 		}));
 	};
 
@@ -162,25 +163,21 @@ var pg = (function() {
 	var hightlight_text = function(words, wordType) {
 		var updatedPara = [];
 		var highlightColor = wordsColors[wordType];
-		var para_words = txtPara[0].innerHTML.trim().split(" ");
+		var para_words = txtPara.html().trim().split(" ");
 		
 		para_words.forEach(function(w) {
 			if(words.indexOf(w) > -1) {
-				w = "<span style='background-color:" + highlightColor + ";'>" + w + "</span>";
+				w = "<span style='border:1px solid #aaa;background-color:" + highlightColor + ";'>" + w + "</span>";
 			};
 			
 			updatedPara.push(w);
 		});
 
-		txtPara[0].innerHTML = updatedPara.join(" ");
-	}
-
-	String.prototype.toTitleCase = function() {
-		return(this.toLowerCase().replace(this.charAt(0), this.charAt(0).toUpperCase()));
+		txtPara.html(updatedPara.join(" "));
 	}
 
 	var display_words = function(word_type, words) {
-		var title = Helper.toTitleCase(word_type);		
+		var title = word_type.toTitleCase();		
 		var str = '<strong>' + title + '</strong>';
 
 		if (words.length === 0) {
@@ -193,10 +190,10 @@ var pg = (function() {
 			});
 			str += '</ul>';
 			
-			var selectedLabel = word_type.toTitleCase();
+			var selectedLabel = title;
 			var selectedLabelID = eval('chk' + selectedLabel);
 
-			selectedLabelID[0].labels[0].innerHTML = selectedLabel + ' (' + words.length + ')';
+			selectedLabelID.html(selectedLabel + ' (' + words.length + ')');
 		}	
 
 		var cont = '.' + word_type + '_cont';
